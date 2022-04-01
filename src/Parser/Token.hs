@@ -23,6 +23,11 @@ module Parser.Token where
                 , tokenData = n
                 , operatorType = Nothing  }
     
+    bracket :: String -> Token
+    bracket n = Token{ tokenType = Bracket (n == "(")
+                     , tokenData = n
+                     , operatorType = Nothing }
+    
     operator :: String -> Token
     operator n =
         let operatorEnum = case n of "+" -> Add

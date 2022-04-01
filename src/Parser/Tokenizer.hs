@@ -10,6 +10,9 @@ module Parser.Tokenizer where
     isWhitespace :: Char -> Bool
     isWhitespace chr = chr `elem` " \t\n"
 
+    isBrackets :: Char -> Bool
+    isBrackets chr = chr `elem` "()"
+
     isOperator :: Char -> Bool
     isOperator chr = chr `elem` "+-*/"
 
@@ -33,6 +36,7 @@ module Parser.Tokenizer where
             in number numberSeq : parseInput seqTail
         | isWhitespace heading = parseInput tailing
         | isOperator heading = operator [heading] : parseInput tailing
+        | isBrackets heading = bracket [heading] : parseInput tailing
         | otherwise = []
 
         where
