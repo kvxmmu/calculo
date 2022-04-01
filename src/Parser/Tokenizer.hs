@@ -1,6 +1,10 @@
 module Parser.Tokenizer where
     import Parser.Token
 
+    startsWith :: (Eq a) => [a] -> a -> Bool
+    startsWith (x:_) val = x == val
+    startsWith [] val = False
+
     isDigit :: Char -> Bool
     isDigit chr = chr `elem` ['0'..'9']
 
