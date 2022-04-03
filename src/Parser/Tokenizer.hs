@@ -1,4 +1,6 @@
-module Parser.Tokenizer where
+module Parser.Tokenizer ( tokenize
+                        , startsWith )
+where
     import Parser.Token
 
     startsWith :: (Eq a) => [a] -> a -> Bool
@@ -31,16 +33,16 @@ module Parser.Tokenizer where
             heading = head seq
             tailing = tail seq
 
-    parseInput :: String -> [Token]
-    parseInput "" = []
-    parseInput seq
+    tokenize :: String -> [Token]
+    tokenize "" = []
+    tokenize seq
         | null seq = []
         | isDigit heading =
             let (numberSeq, seqTail) = parseNumber seq
-            in number numberSeq : parseInput seqTail
-        | isWhitespace heading = parseInput tailing
-        | isOperator heading = operator [heading] : parseInput tailing
-        | isBrackets heading = bracket [heading] : parseInput tailing
+            in number numberSeq : tokenize seqTail
+        | isWhitespace heading = tokenize tailing
+        | isOperator heading = operator [heading] : tokenize tailing
+        | isBrackets heading = bracket [heading] : tokenize tailing
         | otherwise = []
 
         where

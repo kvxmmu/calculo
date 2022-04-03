@@ -4,6 +4,7 @@ import System.IO
 import System.Exit
 
 import Parser.Tokenizer
+import Parser.Parser
 
 calculoLoop = do
     putStr "expression> "
@@ -21,7 +22,7 @@ calculoLoop = do
             "quit" -> exitWith ExitSuccess
             otherwise -> putStrLn "Unknown command, pass .help to get list"
     else
-        putStrLn (show (parseInput expressionOrCommand))
+        putStrLn (show (parseText expressionOrCommand))
 
     calculoLoop
 

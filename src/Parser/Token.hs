@@ -40,9 +40,17 @@ module Parser.Token where
                  , tokenType = Operator
                  , operatorType = Just operatorEnum }
 
+    getBracket :: Token -> Bool
+    getBracket (Token (Bracket side) _ _ ) = side
+    getBracket _ = error "Token is not bracket"
+
     isTokenOperator :: TokenType -> Bool
     isTokenOperator Operator = True
     isTokenOperator _ = False
+
+    isBracket :: Token -> Bool
+    isBracket (Token (Bracket _) _ _ ) = True
+    isBracket _ = False
 
     isNotOperator :: TokenType -> Bool
     isNotOperator tk = not (isTokenOperator tk)
